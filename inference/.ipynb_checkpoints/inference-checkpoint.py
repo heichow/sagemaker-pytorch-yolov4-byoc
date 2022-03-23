@@ -56,10 +56,10 @@ def output_fn(data, accept):
     for feature in data:
         list_features_numpy.append(feature.data.cpu().numpy())
 
-    img = np.zeros(shape=(3, 416, 416)) #Image size = 416 x 416
+    img = np.zeros(shape=(3, 608, 608)) #Image size = 608 x 608
     img = torch.from_numpy(img.transpose(2, 0, 1)).float().div(255.0).unsqueeze(0)
         
-    resp = utils.post_processing(img, 0.5, 15, 0.4, list_features_numpy) #Number of classes = 15
+    resp = utils.post_processing(img, 0.5, 13, 0.4, list_features_numpy) #Number of classes = 13
     logger.info(resp)
     ser = NumpySerializer(content_type='application/x-npy', dtype=np.ndarray)
     return ser.serialize(data=np.array(resp))
